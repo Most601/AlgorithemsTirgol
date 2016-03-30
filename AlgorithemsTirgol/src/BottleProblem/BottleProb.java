@@ -1,53 +1,87 @@
 package BottleProblem;
 
+import java.util.Arrays;
+
 public class BottleProb {
-	static int m,n;
-	static boolean h[][];
-	private static int getIndex(int i,int j){
-		return (n+1)*i+j;
+	int m,n,size;
+	int h[][];
+	String paths[][];
+	int inf = Integer.MAX_VALUE;
+	public BottleProb(int n,int m) {
+		this.m = m;
+		this.n = n;
+		size = (n+1)*(m+1);
+		initMatrBottle();
+		bestPath();
 	}
-	/*private static int getIindex(int index){
-		return index/(n+1);
+	private int getIndex(int i,int j){
+		return (m+1)*i+j;
 	}
-	private static int getJindex(int index){
-		return index % (n+1);
-	}*/
 	
-	private static boolean [][] initMatrBottle(int m,int n){
-		int size = (n+1)*(m+1);
-		h = new boolean[size][size];
-		for (int i = 0; i <= m ; i++) {
-			for (int j = 0; j <= n ; j++) {
-				
-				int Index = getIndex(i,j);
-				
-				int i1 = getIndex(m, j);
-				h[Index][i1] = true;
-				int i2 = getIndex(0, j);
-				h[Index][i2] = true;
-				int i3 = getIndex(i,n);
-				h[Index][i3] = true;
-				int i4 = getIndex(i,0);
-				h[Index][i4] = true;
-				int i5 = getIndex(Math.max(0, i+j-n),Math.min(i+j, n));
-				h[Index][i5] = true;
-				int i6 = getIndex(Math.min(m,i+j),Math.max(0,i+j-m));
-				h[Index][i6] = true;
+	private int [][] initMatrBottle(){
+		h = new int [size][size];
+		paths = new String[size][size];
+		for (int i = 0; i < h.length; i++) {
+			Arrays.fill(h[i],inf);
+			Arrays.fill(paths[i], "");
+		}
+		
+		for (int i = 0; i <= n ; i++) {
+			for (int j = 0; j <= m ; j++) {
+				setPath(i, j, 0, j);
+				setPath(i, j, i, 0);
+				setPath(i, j, i, m);
+				setPath(i, j, n, j);
+				setPath(i, j, Math.max(0, i-(m-j)),Math.min(m, i+j));
+				setPath(i, j, Math.min(n,i+j),Math.max(0,j-(n-i)));	
 			}
 		}
 		return h;
 	}
-	static <T> void PrintMat(boolean [][] mat){
-		for (int i = 0; i < mat.length; i++) {
-			for (int j = 0; j < mat[0].length; j++) {
-				System.out.print(mat[i][j] + ", ");
+	
+	private void setPath(int i1,int j1,int i2,int j2) {
+		int from = getIndex(i1, j1);
+		int to = getIndex(i2, j2);
+		if(from == to) return;
+		h[from][to] = 1;
+		paths[from][to] = "->" + "("+i2+","+ j2+")";
+	}
+	public String getPath(int i,int j){
+		if(h[getIndex(0,0)][getIndex(i, j)] == inf){
+			return "No Such Path!";
+		}
+		else
+			return "(0,0)"+ paths[getIndex(0, 0)][getIndex(i, j)];
+		
+	}
+	private void bestPath(){
+		for (int k = 0; k < size ; k++) {
+			for (int i = 0; i < size; i++) {
+				for (int j = 0; j < size; j++) {
+					if(h[i][k] != inf && h[k][j] != inf &&(h[i][j] > h[i][k] + h[k][j])){
+						h[i][j] = h[i][k] + h[k][j];
+						paths[i][j] = paths[i][k] + paths[k][j];
+					}
+				}
+			}
+		}
+	}
+	
+	
+	<T> void PrintMat(){
+		for (int i = 0; i < h.length; i++) {
+			for (int j = 0; j < h[0].length; j++) {
+				if(h[i][j] != inf)System.out.print(h[i][j] + ", ");
+				else System.out.print((char)256 + ", ");
 			}
 			System.out.println();
 		}
 	}
 	
+	
 	public static void main(String[] args) {
-		boolean mat [][] = initMatrBottle(2, 1);
-		PrintMat(mat);
+		BottleProb B = new BottleProb(7,4);
+		//B.PrintMat();
+		System.out.println(B.getPath(6, 4));
 	}
 }
