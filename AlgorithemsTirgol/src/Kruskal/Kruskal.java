@@ -12,7 +12,7 @@ public class Kruskal {
 	public Kruskal(Edge[] edges) {
 		numOfVertices(edges);
 		numOfEdges = edges.length;
-		Tree = new Edge[numOfEdges];
+		Tree = new Edge[numOfVertices-1];
 		VerticesSet = new int[numOfVertices];
 		minCost = 0;
 		MST(edges);
