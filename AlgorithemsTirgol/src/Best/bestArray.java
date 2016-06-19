@@ -54,6 +54,7 @@ public class bestArray {
 		int arr[] = {-10,8,-1,8,-9,1,-1,-9,1,-9};
 		int arr2[] = {1,-9,2,3};
 		bestArray b = new bestArray(arr);
+		System.out.println(b.getBest(arr));
 		bestArray b2 = new bestArray(arr2);
 		System.out.println(b2.cyclicBest());
 	}
