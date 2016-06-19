@@ -15,9 +15,9 @@ public class FloydWarshell {
 			}
 		}
 		
-		for (int k = 0; k < mat.length; k++) {
-			for (int i = 0; i < mat.length; i++) {
-				for (int j = 0; j < mat.length; j++) {
+		for (int k = 0; k < len; k++) {
+			for (int i = 0; i < len; i++) {
+				for (int j = 0; j < len; j++) {
 					if(ans[i][j]>ans[i][k]+ans[k][j] )
 						if(ans[i][k]!=0 && ans[k][j]!=0)
 						ans[i][j] = ans[i][k]+ans[k][j];
