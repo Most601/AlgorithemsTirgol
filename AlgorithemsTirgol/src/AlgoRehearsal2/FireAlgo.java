@@ -1,62 +1,67 @@
-package FireAlgo;
+package AlgoRehearsal2;
 
 import java.util.ArrayList;
 
-public class FireAlgo {
-	int center1,center2;
-	int radius,diameter;
-	ArrayList<Integer>[] tree;
 
-	public FireAlgo(ArrayList<Integer>[] g) {
-		this.tree = g;
+public class FireAlgo {
+	
+	ArrayList<Integer> graph[];
+	ArrayList<Integer> leaves;
+	int center1,center2,radius;
+	int deg[];
+	int diameter;
+	public FireAlgo(ArrayList<Integer> g[]) {
+		this.graph = g;
 		center1=center2=-1;
-		radius=-1;
+		init();
 		fire();
+	}
+	
+	private void init() {
+		deg = new int[graph.length];
+		leaves = new ArrayList<>();
+		for (int i = 0; i < deg.length; i++) {
+			deg[i] = graph[i].size();
+			if(deg[i]==1)leaves.add(i);
+		}
+		
 	}
 
 	private void fire() {
-		int n = tree.length;
-		radius=0;
-		diameter = 0;
-		int v = n;
-		int deg[] = new int[n];
-		ArrayList<Integer> leaves = new ArrayList<>();
-		for (int i = 0; i < deg.length; i++) {
-			deg[i] = tree[i].size();
-			if(deg[i]==1)leaves.add(i);
-		}
-
-		while(v>2){
-			for (int i = 0; i < leaves.size(); i++) {
+		radius = 0;
+		int n = graph.length;
+		while(n>2){
+			int l = leaves.size();
+			for (int i = 0; i < l; i++) {
 				int index = leaves.remove(0);
 				deg[index]--;
-				v--;
-				for (int j = 0; j < tree[index].size(); j++) {
-					int ni = tree[index].get(j);
-					deg[ni]--;
-					if(deg[ni]==1) {
-						leaves.add(ni);
-					}
+				n--;
+				for (int j = 0; j < graph[index].size(); j++) {
+					int u = graph[index].get(j);
+					deg[u]--;
+					if(deg[u]==1) leaves.add(u);
 				}
-
 			}
 			radius++;
-
+			
 		}
+		
+		
 		if(leaves.size()>1){
-			center1 = leaves.remove(0);
-			center2 = leaves.remove(0);
-			diameter = (radius*2) -1;
-
+			center1=leaves.remove(0);
+			center2=leaves.remove(0);
+			radius++;
+			diameter = (2*radius)-1;
 		}
-		else {
+		else{
 			center1=center2=leaves.remove(0);
-			diameter = radius*2;
+			diameter = 2*radius;
 		}
+		
 	}
 
-
 	public static void main(String[] args) {
+		
 		ArrayList<Integer> g[] = new ArrayList[7];
 		for (int i = 0; i < g.length; i++) {
 			g[i] = new ArrayList<>();
@@ -77,7 +82,7 @@ public class FireAlgo {
 		System.out.println(f.center2);
 		System.out.println(f.radius);
 		System.out.println(f.diameter);
-
+		
 		ArrayList<Integer> tree[] = new ArrayList[7];
 		for (int i=0; i<tree.length; i++)
 		{
@@ -101,14 +106,13 @@ public class FireAlgo {
 		tree[5].add(6);//6->7
 		////////////
 		tree[6].add(5);//7->6
-
+		
 		System.out.println("======F2=========");
 		FireAlgo f2 = new FireAlgo(tree);
-		System.out.println(f2.center1);
-		System.out.println(f2.center2);
-		System.out.println(f2.radius);
-		System.out.println(f2.diameter);
-
+		System.out.println("center1:"+f2.center1);
+		System.out.println("center2:"+f2.center2);
+		System.out.println("radius:"+f2.radius);
+		System.out.println("diameter:"+f2.diameter);
 	}
-
+	
 }

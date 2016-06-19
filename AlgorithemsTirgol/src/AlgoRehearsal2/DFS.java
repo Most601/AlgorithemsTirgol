@@ -1,52 +1,45 @@
-package DFS;
+package AlgoRehearsal2;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Stack;
-
-import BFS.BFS;
-
 public class DFS {
-	
-	int color[];
-	int pred[];
-	int first[],last[];
-	int time,size;
+
 	ArrayList<Integer> g[];
+	int [] color,pred,dist;
 	public DFS(ArrayList<Integer> g[]) {
-		time=0;
-		size = g.length;
-		this.g = g;
-		init(size);
-		for (int i = 0; i < g.length; i++) {
-			if(color[i] == 0) DFS(i);
-		}
-
+		this.g= g;
+		dfs(0);
 	}
-	
-	
-	private void DFS(int source) {
-		first[source] = ++time;
+	private void dfs(int source) {
+		init();
+		Stack<Integer> s = new Stack<>();
+		s.push(source);
 		color[source] = 1;
-		for (int u : g[source]) {
-			if(color[u] == 0) {
-				pred[u] = source;
-				DFS(u);
+		dist[source ] = 0;
+		while(!s.isEmpty()){
+			int u = s.pop();
+			for (Integer v: g[u]) {
+				if(color[v]==0){
+					color[v]= 1;
+					pred[v] = u;
+					dist[v] = dist[u]+1;
+					s.push(v);
+				}
 			}
+			color[u] = 2;
 		}
-		color[source] = 2;
-		last[source] = ++time;
 	}
-
-
-	private void init(int size) {
-		color = new int[size];
-		pred = new int[size];
-		first = new int[size];
-		last = new int[size];
+	private void init() {
+		int n = g.length;
+		color = new int[n];
+		pred = new int[n];
+		dist = new int [n];
 		Arrays.fill(pred, -1);
-		
+		Arrays.fill(dist, Integer.MAX_VALUE);
+
 	}
+
 	public static void main(String[] args) {
 		ArrayList<Integer> g[] = new ArrayList[7];
 		for (int i = 0; i < g.length; i++) {
@@ -74,11 +67,10 @@ public class DFS {
 		System.out.println("====Pred=====");
 		System.out.println(Arrays.toString(pred));
 		System.out.println("=============");
-		System.out.println("====First=====");
-		System.out.println(Arrays.toString(first));
-		System.out.println("=============");
-		System.out.println("====Last======");
-		System.out.println(Arrays.toString(last));
+		System.out.println("====Dist=====");
+		System.out.println(Arrays.toString(dist));
 		System.out.println("=============");
 	}
+
+
 }
