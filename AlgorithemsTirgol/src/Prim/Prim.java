@@ -14,7 +14,6 @@ public class Prim {
 		graph = g;
 		int n = graph.length;
 		tree = new Edge[n-1]; //creating MST
-		int numEdges = 0;
 		Arrays.fill(weight, inf);
 		Arrays.fill(parent, -1);
 		findMST(0);
