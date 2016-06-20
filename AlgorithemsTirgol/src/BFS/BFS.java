@@ -10,21 +10,22 @@ import java.util.concurrent.ArrayBlockingQueue;
 public class BFS {
 	
 	ArrayList<Integer> tree[];
-	int color[];
-	int pred[];
-	int dist[];
+	public int color[];
+	public int pred[];
+	public int dist[];
 	
 	public BFS(ArrayList<Integer> g[]) {
 		this.tree = g;
-		color = new int[g.length];
-		pred = new int[g.length];
-		dist = new int[g.length];
-		Arrays.fill(dist, -1);
-		Arrays.fill(pred,-1);
+		
 		BFS(0);
 	}
 	
-	private void BFS(int source) {
+	public void BFS(int source) {
+		color = new int[tree.length];
+		pred = new int[tree.length];
+		dist = new int[tree.length];
+		Arrays.fill(dist, -1);
+		Arrays.fill(pred,-1);
 		ArrayBlockingQueue<Integer> q = new ArrayBlockingQueue<>(tree.length);
 		q.add(source);
 		color[source] = 1;
