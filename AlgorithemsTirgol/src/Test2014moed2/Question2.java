@@ -52,11 +52,11 @@ public class Question2 {
 
 
 	public static void main(String[] args) {
-		ArrayList<Integer> g [] = initGraph();
+		ArrayList<Integer> g [] = initGraph2();
 		System.out.println(Arrays.toString(connectedComponents(g)));
 	}
 
-	public static ArrayList<Integer>[] initGraph(){
+	public static ArrayList<Integer>[] initGraph1(){
 		int n = 4;
 		ArrayList<Integer>[] graph = new ArrayList[n];
 		for (int i=0; i<n; i++){
@@ -68,4 +68,39 @@ public class Question2 {
 		graph[2].add(1);
 		return graph;
 	}
+	public static ArrayList<Integer>[] initGraph2(){
+		int n = 9;
+		ArrayList<Integer>[] graph = new ArrayList[n];
+		for (int i=0; i<n; i++){
+			graph [i] = new ArrayList<Integer>(n);
+		}
+		graph[0].add(1);
+		graph[0].add(2);
+		
+		graph[1].add(0);
+		graph[1].add(2);
+		graph[1].add(3);
+		
+		graph[2].add(0);
+		graph[2].add(1);
+		graph[2].add(3);
+		
+		graph[3].add(1);
+		graph[3].add(2);
+		
+		graph[4].add(5);
+		graph[5].add(4);
+		
+		graph[6].add(7);
+		graph[6].add(8);
+		
+		graph[7].add(6);
+		graph[7].add(8);
+		
+		graph[8].add(6);
+		graph[8].add(7);
+		
+		return graph;
+	}
+	
 }
