@@ -1,7 +1,6 @@
 package Euler;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Stack;
 
 public class EulerCycle {
@@ -25,7 +24,7 @@ public class EulerCycle {
 		
 		return copy;
 	}
-	@SuppressWarnings("unused")
+	
 	private ArrayList<Integer> EulerAlgo(){
 		int v = start;
 		ArrayList<Integer> ans = new ArrayList<>();
@@ -91,6 +90,7 @@ public class EulerCycle {
 	
 	
 	public static void main(String[] args) {
+		@SuppressWarnings("unchecked")
 		ArrayList<Integer> g[] = new ArrayList[7];
 		for (int i = 0; i < g.length; i++) {
 			g[i] = new ArrayList<>();
