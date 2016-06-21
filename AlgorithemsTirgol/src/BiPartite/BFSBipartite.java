@@ -39,7 +39,7 @@ public class BFSBipartite {
 					isBiPartite = false;
 					return;
 				}
-				if(partition[v] == 0 && color[v] == 0){
+				if(partition[v] == 1 && color[v] == 0){
 					partition[v] = 3 - partition[u];
 				}
 				q.add(v);

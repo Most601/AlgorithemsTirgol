@@ -72,11 +72,15 @@ public class bestMatrix {
 		}
 		
 		
+		
 		return h;
 	}
 	
 	public static void main(String[] args) {
 		int m[][] = {{1,2,3},{-3,4,5},{-1,-2,-4}};
-		System.out.println(BestMatrixDynamic(m));
+		int mat2[][] = {{20,-30,5,7}
+						,{-40,5,1,7}
+						,{5,-20,-1,-1}};
+		System.out.println(BestMatrixDynamic(mat2));
 	}
 }
