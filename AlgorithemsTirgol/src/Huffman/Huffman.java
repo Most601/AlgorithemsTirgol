@@ -24,6 +24,7 @@ public class Huffman {
 		q1 = new ArrayBlockingQueue<>(size);
 		q2 = new ArrayBlockingQueue<>(size);
 		for (int i = 0; i < freq.length; i++) {
+			tree[i][weight] = freq[i];
 			q1.add(i);
 		}
 		buildTree();

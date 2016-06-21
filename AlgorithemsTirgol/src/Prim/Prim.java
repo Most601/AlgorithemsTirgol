@@ -10,6 +10,7 @@ public class Prim {
 	private ArrayList<Node> graph[];
 	private int[] parent,color,weight;
 	private static final int inf = Integer.MAX_VALUE;
+	
 	public Prim(ArrayList<Node> g[]) {
 		graph = g;
 		int n = graph.length;
